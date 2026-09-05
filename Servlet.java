@@ -1,0 +1,40 @@
+package org.example;
+
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+@WebServlet("/login")
+public class Servlet extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response)
+            throws IOException {
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        response.setContentType("text/html");
+
+        PrintWriter out = response.getWriter();
+
+        out.println("<html>");
+        out.println("<body>");
+
+        if ("admin".equals(username) && "1234".equals(password)) {
+            out.println("<h2>Login Successful</h2>");
+            out.println("<p>Welcome, " + username + "</p>");
+        } else {
+            out.println("<h2>Login Failed</h2>");
+            out.println("<p>Invalid username or password</p>");
+        }
+
+        out.println("</body>");
+        out.println("</html>");
+    }
+}
